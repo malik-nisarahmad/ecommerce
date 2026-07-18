@@ -8,7 +8,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).default("missing-anon-key"),
 
   // Server-only variables (we make them optional on the client so zod doesn't crash in the browser)
-  SUPABASE_SERVICE_ROLE_KEY: isServer ? z.string().min(1) : z.any().optional(),
+  SUPABASE_SERVICE_ROLE_KEY: isServer ? z.string().min(1).default("missing-service-role-key") : z.any().optional(),
   JWT_SECRET: isServer ? z.string().min(32).default("local-development-jwt-secret-at-least-32-chars") : z.any().optional(),
   APP_URL: isServer ? z.string().url().default("http://localhost:3000") : z.any().optional(),
   STRIPE_SECRET_KEY: z.any().optional(),
