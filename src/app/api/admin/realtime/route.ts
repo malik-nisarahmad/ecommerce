@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { requireAdminUser } from "@/lib/auth";
 import { subscribeRealtimeEvent } from "@/lib/realtime";
 import { jsonError } from "@/lib/http";
@@ -43,4 +44,5 @@ export async function GET(request: Request): Promise<Response> {
     },
   });
 }
+
 

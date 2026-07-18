@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { createHash } from "node:crypto";
 import { prisma } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
@@ -63,4 +64,5 @@ export async function POST(request: Request): Promise<Response> {
     return normalizeError(error);
   }
 }
+
 

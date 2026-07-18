@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { requireSessionUser } from "@/lib/auth";
 import { parseJsonBody, normalizeError, jsonResponse } from "@/lib/http";
@@ -25,3 +26,4 @@ export async function POST(request: Request): Promise<Response> {
     return normalizeError(error);
   }
 }
+

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { requireAdminUser } from "@/lib/auth";
 import { normalizeError, jsonResponse } from "@/lib/http";
@@ -24,4 +25,5 @@ export async function GET(): Promise<Response> {
     return normalizeError(error);
   }
 }
+
 

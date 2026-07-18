@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 import { env } from "@/lib/env";
@@ -67,3 +68,4 @@ export async function POST(request: Request): Promise<Response> {
 
   return new Response("Webhook processed successfully", { status: 200 });
 }
+

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { getOrCreateCart } from "@/lib/cart";
 import { requireSessionUser } from "@/lib/auth";
@@ -62,4 +63,5 @@ export async function PUT(request: Request): Promise<Response> {
     return normalizeError(error);
   }
 }
+
 

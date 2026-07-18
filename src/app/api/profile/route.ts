@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireSessionUser } from "@/lib/auth";
@@ -50,4 +51,5 @@ export async function PATCH(request: Request): Promise<Response> {
     return normalizeError(error);
   }
 }
+
 

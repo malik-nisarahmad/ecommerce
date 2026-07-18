@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { catalogQuerySchema } from "@/lib/validators";
 import { normalizeError, jsonResponse } from "@/lib/http";
@@ -68,4 +69,5 @@ export async function GET(request: Request): Promise<Response> {
     return normalizeError(error);
   }
 }
+
 
