@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FreshLane Grocers
 
-## Getting Started
+Production-grade grocery e-commerce platform built with **Next.js 16 + TypeScript (strict)** and **Supabase/PostgreSQL**.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Customer storefront
+- Product catalog with pagination, category filter, keyword search, and sorting.
+- Product detail pages with stock visibility.
+- Persistent cart:
+  - Logged-in users: database-backed cart
+  - Guests: localStorage cart
+- Checkout with address selection and stock-safe order placement.
+- Authentication: signup, login, logout, password reset.
+- Order history.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Admin panel
+- Role-based access control (`ADMIN` and `CUSTOMER`).
+- Product and stock management APIs.
+- Order status management.
+- Real-time SSE dashboard showing:
+  - Incoming orders
+  - Live stock updates
+  - Low inventory alerts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Payments and email
+- Stripe checkout session creation (test mode).
+- Stripe webhook idempotency with unique event tracking.
+- Order confirmation email support via SMTP.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Security & quality
+- Runtime validation with Zod.
+- Password hashing with bcrypt.
+- httpOnly secure session cookies.
+- Security headers configured in Next config.
+- Rate limiting on login/signup.
+- Strict TypeScript, no `any`.
+- Unit test for stock reservation logic.
 
-## Learn More
+## Concurrency approach
 
-To learn more about Next.js, take a look at the following resources:
+`src/lib/checkout-service.ts` uses a serializable transaction and atomic conditional stock decrement (`stock >= quantity`) per item. If any decrement fails, the transaction aborts and the order is rejected. This prevents overselling under concurrent checkouts.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Use a Supabase PostgreSQL connection URL:
 
-## Deploy on Vercel
+`postgresql://postgres:[password]@[host]:5432/postgres?sslmode=require`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you use the pooled Supabase connection, keep the same `postgresql://` format and follow the connection string from your Supabase project settings.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Setup
+
+1. Install:
+   - `pnpm install`
+2. Configure env:
+   - copy `.env.example` to `.env`
+3. Create the tables in Supabase using [`supabase/schema.sql`](G:/e-commerce/supabase/schema.sql)
+4. Seed sample data with your own setup script or Supabase SQL editor
+5. Start dev server:
+   - `pnpm dev`
+
+## Scripts
+
+- `pnpm lint`
+- `pnpm test`
+- `pnpm build`
+
+## Seed credentials
+
+- Admin: `admin@freshlane.test` / `AdminPass123!`
+- Customer: `customer@freshlane.test` / `CustomerPass123!`
