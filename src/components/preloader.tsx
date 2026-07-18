@@ -47,7 +47,7 @@ export function Preloader() {
     initial: { top: 0 },
     exit: { 
       top: "-100vh", 
-      transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.2 } 
+      transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] as any, delay: 0.2 } 
     }
   };
 
@@ -77,7 +77,7 @@ export function Preloader() {
                   <motion.span
                     initial={{ y: "100%" }}
                     animate={{ y: "0%" }}
-                    transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: i * 0.05 }}
+                    transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] as any, delay: i * 0.05 }}
                     className="inline-block"
                   >
                     {letter}
